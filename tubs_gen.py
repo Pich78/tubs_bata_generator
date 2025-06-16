@@ -1,18 +1,21 @@
 import sys
 import re
 
-# Mappa dei simboli TUBS ai simboli SVG
+# Map from TUBS symbols to SVG shapes
 symbol_map = {
     '-': '',
     'A': '<circle cx="15" cy="15" r="10" stroke="black" stroke-width="2" fill="white" />',
     'P': '<circle cx="15" cy="15" r="10" stroke="black" stroke-width="2" fill="white" stroke-dasharray="4" />',
     'S': '<polygon points="15,5 25,25 5,25" stroke="black" stroke-width="2" fill="white" />',
+    # Triangle slightly smaller and fully inscribed in the circle (radius 10, stroke 2)
+    'I': '<circle cx="15" cy="15" r="10" stroke="black" stroke-width="2" fill="white" />' +
+         '<polygon points="15,7.3 21,20 9,20" stroke="black" stroke-width="1.5" fill="white" />'
 }
 
 def parse_input(filename):
     with open(filename, 'r') as f:
         lines = f.readlines()
-    
+
     time_signature = lines[0].strip()
     parts = {'Okonkolo': '', 'Itotele': '', 'Iya': ''}
     current = None
@@ -36,7 +39,7 @@ def generate_html(time_signature, parts):
         svg { width: 30px; height: 30px; }
     """)
     html.append('</style></head><body>')
-    html.append(f'<h2>Spartito Batà in {time_signature}</h2>')
+    html.append(f'<h2>Bat\u00e0 Drum Score in {time_signature}</h2>')
     html.append('<table>')
 
     for drum in ['Okonkolo', 'Itotele', 'Iya']:
@@ -54,9 +57,9 @@ def generate_html(time_signature, parts):
 
 def main():
     if len(sys.argv) != 3:
-        print("Uso: python generate_tubs_html.py input.txt output.html")
+        print("Usage: python generate_tubs_html.py input.txt output.html")
         return
-    
+
     time_sig, parts = parse_input(sys.argv[1])
     html = generate_html(time_sig, parts)
     with open(sys.argv[2], 'w') as f:
