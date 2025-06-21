@@ -43,7 +43,21 @@ def parse_input(filename):
     return toque_name, time_signature, parts
 
 def generate_html(toque_name, time_signature, parts):
-    beats_per_bar = 4 if time_signature == '4/4' else 6 if time_signature == '6/8' else 4
+    # beats_per_bar will be 4 for 4/4 and 6 for 6/8
+    beats_per_bar = int(time_signature.split('/')[0]) # Get the numerator of time signature
+    
+    # Assuming each TUBS symbol is a sixteenth note for consistency
+    # This means 4 symbols per quarter in 4/4.
+    # In 6/8, if it's counting "every 6", then it's 6 symbols per "beat" unit for the top row.
+    # The bottom row (sedicesimi) should count up to that "beat" unit.
+    
+    # Determine the "grouping unit" for the top count row
+    # For 4/4, it's 4 sixteenths per quarter
+    # For 6/8, it's 6 symbols per new "top count" number
+    top_count_unit = 4 
+    if time_signature == '6/8':
+        top_count_unit = 6 # Count the top line every 6 symbols (sedicesimi)
+        
     max_len = max(len(seq) for seq in parts.values())
 
     html = ['<html>', '<head>', '<style>']
@@ -85,30 +99,29 @@ def generate_html(toque_name, time_signature, parts):
         }
     """)
     html.append('</style></head><body>')
-    # MODIFICA QUI: Rimosso "Batà Drum Score -"
     html.append(f'<h2>{toque_name} in {time_signature}</h2>')
     html.append('<table>')
 
-    # Add Quarter note count row
+    # Add Top count row (Quarti for 4/4, "gruppi di 6" for 6/8)
     html.append('<tr class="count-row quarter">')
-    html.append('<td class="count-label">Quarti</td>')
+    html.append(f'<td class="count-label">{"Quarti" if time_signature == "4/4" else "Gruppi"}</td>')
     for i in range(max_len):
-        quarter_count = (i // 4) + 1
-        display_quarter = ""
-        if i % 4 == 0:
-            display_quarter = str(quarter_count)
+        current_count = (i // top_count_unit) + 1
+        display_count = ""
+        if i % top_count_unit == 0: # Only print the number on the first symbol of each group
+            display_count = str(current_count)
         
         bar_class = 'bar-line' if (i + 1) % beats_per_bar == 0 else ''
-        html.append(f'<td class="{bar_class}">{display_quarter}</td>')
+        html.append(f'<td class="{bar_class}">{display_count}</td>')
     html.append('</tr>')
 
-    # Add Sixteenth note count row
+    # Add Bottom count row (Sedicesimi for 4/4, "Suddivisioni" for 6/8)
     html.append('<tr class="count-row sixteenth">')
-    html.append('<td class="count-label">Sedicesimi</td>')
+    html.append(f'<td class="count-label">{"Sedicesimi" if time_signature == "4/4" else "Suddivisioni"}</td>')
     for i in range(max_len):
-        sixteenth_beat = (i % 4) + 1
+        bottom_beat = (i % top_count_unit) + 1 # Count 1 to `top_count_unit` for each group
         bar_class = 'bar-line' if (i + 1) % beats_per_bar == 0 else ''
-        html.append(f'<td class="{bar_class}">{sixteenth_beat}</td>')
+        html.append(f'<td class="{bar_class}">{bottom_beat}</td>')
     html.append('</tr>')
 
 
