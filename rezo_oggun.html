@@ -2,66 +2,155 @@
 <head>
 <style>
 
-        table { border-collapse: collapse; }
-        td { width: 30px; height: 30px; text-align: center; border: 1px solid #aaa; }
-        .bar-line { border-right: 3px solid black !important; }
+        body {
+            background-color: rgb(100, 100, 100); /* Sfondo grigio medio per tutto il body */
+            color: white; /* Testo bianco per tutto il body */
+            font-family: sans-serif; /* Un font leggibile */
+        }
+        table { border-collapse: collapse; margin-top: 20px;}
+        td {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            border: 1px solid #aaa;
+            background-color: rgb(100, 100, 100);
+            vertical-align: middle; /* Allinea il contenuto al centro verticalmente */
+        }
+        .bar-line { border-right: 3px solid white !important; } /* Linee delle barre bianche per contrasto */
         svg { width: 30px; height: 30px; }
+        .legend-item { display: flex; align-items: center; margin-bottom: 5px; }
+        .legend-symbol { margin-right: 10px; }
+        h2, h3 { color: white; } /* Assicurati che gli heading siano bianchi */
+        .count-row td {
+            font-size: 0.8em; /* Rendi il testo del conteggio leggermente più piccolo */
+            font-weight: bold;
+            color: #eee; /* Colore leggermente più chiaro per il conteggio */
+            border: none; /* Rimuovi i bordi tra le celle del conteggio */
+            background-color: transparent; /* Sfondo trasparente per le celle del conteggio */
+        }
+        .count-row.quarter td {
+            border-bottom: 1px solid #777; /* Sottolinea la riga dei quarti */
+        }
+        .count-label {
+            width: 80px; /* Larghezza fissa per le etichette di conteggio */
+            text-align: left;
+            padding-left: 5px;
+            font-weight: bold;
+        }
     
 </style></head><body>
-<h2>Bat� Drum Score in 4/4</h2>
+<h2>Batà Drum Score in 4/4</h2>
 <table>
+<tr class="count-row quarter">
+<td class="count-label">Quarti</td>
+<td class="">1</td>
+<td class=""></td>
+<td class=""></td>
+<td class="bar-line"></td>
+<td class="">2</td>
+<td class=""></td>
+<td class=""></td>
+<td class="bar-line"></td>
+<td class="">3</td>
+<td class=""></td>
+<td class=""></td>
+<td class="bar-line"></td>
+<td class="">4</td>
+<td class=""></td>
+<td class=""></td>
+<td class="bar-line"></td>
+</tr>
+<tr class="count-row sixteenth">
+<td class="count-label">Sedicesimi</td>
+<td class="">1</td>
+<td class="">2</td>
+<td class="">3</td>
+<td class="bar-line">4</td>
+<td class="">1</td>
+<td class="">2</td>
+<td class="">3</td>
+<td class="bar-line">4</td>
+<td class="">1</td>
+<td class="">2</td>
+<td class="">3</td>
+<td class="bar-line">4</td>
+<td class="">1</td>
+<td class="">2</td>
+<td class="">3</td>
+<td class="bar-line">4</td>
+</tr>
 <tr><td><b>Okonkolo</b></td>
-<td class=""><svg><circle cx="15" cy="15" r="10" stroke="black" stroke-width="2" fill="white" /><polygon points="15,7.3 21,20 9,20" stroke="black" stroke-width="1.5" fill="white" /></svg></td>
+<td class=""><svg><circle cx="15" cy="15" r="10" stroke="white" stroke-width="2" fill="rgb(200, 0, 0)" /><polygon points="15,7.3 21,20 9,20" stroke="white" stroke-width="1.5" fill="rgb(200, 0, 0)" /></svg></td>
 <td class=""><svg></svg></td>
 <td class=""><svg></svg></td>
-<td class="bar-line"><svg><circle cx="15" cy="15" r="10" stroke="black" stroke-width="2" fill="white" /></svg></td>
-<td class=""><svg><polygon points="15,5 25,25 5,25" stroke="black" stroke-width="2" fill="white" /></svg></td>
+<td class="bar-line"><svg><circle cx="15" cy="15" r="10" stroke="white" stroke-width="2" fill="rgb(200, 0, 0)" /></svg></td>
+<td class=""><svg><polygon points="15,5 25,25 5,25" stroke="white" stroke-width="2" fill="rgb(200, 0, 0)" /></svg></td>
 <td class=""><svg></svg></td>
 <td class=""><svg></svg></td>
 <td class="bar-line"><svg></svg></td>
-<td class=""><svg><circle cx="15" cy="15" r="10" stroke="black" stroke-width="2" fill="white" /><polygon points="15,7.3 21,20 9,20" stroke="black" stroke-width="1.5" fill="white" /></svg></td>
+<td class=""><svg><circle cx="15" cy="15" r="10" stroke="white" stroke-width="2" fill="rgb(200, 0, 0)" /><polygon points="15,7.3 21,20 9,20" stroke="white" stroke-width="1.5" fill="rgb(200, 0, 0)" /></svg></td>
 <td class=""><svg></svg></td>
-<td class=""><svg><circle cx="15" cy="15" r="10" stroke="black" stroke-width="2" fill="white" /></svg></td>
+<td class=""><svg><circle cx="15" cy="15" r="10" stroke="white" stroke-width="2" fill="rgb(200, 0, 0)" /></svg></td>
 <td class="bar-line"><svg></svg></td>
-<td class=""><svg><polygon points="15,5 25,25 5,25" stroke="black" stroke-width="2" fill="white" /></svg></td>
+<td class=""><svg><polygon points="15,5 25,25 5,25" stroke="white" stroke-width="2" fill="rgb(200, 0, 0)" /></svg></td>
 <td class=""><svg></svg></td>
 <td class=""><svg></svg></td>
 <td class="bar-line"><svg></svg></td>
 </tr>
 <tr><td><b>Itotele</b></td>
-<td class=""><svg><polygon points="15,5 25,25 5,25" stroke="black" stroke-width="2" fill="white" /></svg></td>
+<td class=""><svg><polygon points="15,5 25,25 5,25" stroke="white" stroke-width="2" fill="rgb(255, 200, 0)" /></svg></td>
 <td class=""><svg></svg></td>
 <td class=""><svg></svg></td>
 <td class="bar-line"><svg></svg></td>
-<td class=""><svg><polygon points="15,5 25,25 5,25" stroke="black" stroke-width="2" fill="white" /></svg></td>
+<td class=""><svg><polygon points="15,5 25,25 5,25" stroke="white" stroke-width="2" fill="rgb(255, 200, 0)" /></svg></td>
 <td class=""><svg></svg></td>
 <td class=""><svg></svg></td>
 <td class="bar-line"><svg></svg></td>
-<td class=""><svg><polygon points="15,5 25,25 5,25" stroke="black" stroke-width="2" fill="white" /></svg></td>
+<td class=""><svg><polygon points="15,5 25,25 5,25" stroke="white" stroke-width="2" fill="rgb(255, 200, 0)" /></svg></td>
 <td class=""><svg></svg></td>
 <td class=""><svg></svg></td>
 <td class="bar-line"><svg></svg></td>
-<td class=""><svg><circle cx="15" cy="15" r="10" stroke="black" stroke-width="2" fill="white" /><polygon points="15,7.3 21,20 9,20" stroke="black" stroke-width="1.5" fill="white" /></svg></td>
+<td class=""><svg><circle cx="15" cy="15" r="10" stroke="white" stroke-width="2" fill="rgb(255, 200, 0)" /><polygon points="15,7.3 21,20 9,20" stroke="white" stroke-width="1.5" fill="rgb(255, 200, 0)" /></svg></td>
 <td class=""><svg></svg></td>
 <td class=""><svg></svg></td>
 <td class="bar-line"><svg></svg></td>
 </tr>
 <tr><td><b>Iya</b></td>
-<td class=""><svg><polygon points="15,5 25,25 5,25" stroke="black" stroke-width="2" fill="white" /></svg></td>
+<td class=""><svg><polygon points="15,5 25,25 5,25" stroke="white" stroke-width="2" fill="rgb(0, 0, 150)" /></svg></td>
 <td class=""><svg></svg></td>
 <td class=""><svg></svg></td>
 <td class="bar-line"><svg></svg></td>
 <td class=""><svg></svg></td>
 <td class=""><svg></svg></td>
-<td class=""><svg><polygon points="15,5 25,25 5,25" stroke="black" stroke-width="2" fill="white" /></svg></td>
+<td class=""><svg><polygon points="15,5 25,25 5,25" stroke="white" stroke-width="2" fill="rgb(0, 0, 150)" /></svg></td>
 <td class="bar-line"><svg></svg></td>
 <td class=""><svg></svg></td>
 <td class=""><svg></svg></td>
-<td class=""><svg><circle cx="15" cy="15" r="10" stroke="black" stroke-width="2" fill="white" /><polygon points="15,7.3 21,20 9,20" stroke="black" stroke-width="1.5" fill="white" /></svg></td>
+<td class=""><svg><circle cx="15" cy="15" r="10" stroke="white" stroke-width="2" fill="rgb(0, 0, 150)" /><polygon points="15,7.3 21,20 9,20" stroke="white" stroke-width="1.5" fill="rgb(0, 0, 150)" /></svg></td>
 <td class="bar-line"><svg></svg></td>
 <td class=""><svg></svg></td>
 <td class=""><svg></svg></td>
 <td class=""><svg></svg></td>
 <td class="bar-line"><svg></svg></td>
 </tr>
-</table></body></html>
+</table>
+<h3>Legenda dei simboli:</h3>
+<div class="legend-container">
+<div class="legend-item">
+<div class="legend-symbol"><svg><circle cx="15" cy="15" r="10" stroke="white" stroke-width="2" fill="rgb(200, 0, 0)" /></svg></div>
+<span>A: Suono aperto</span>
+</div>
+<div class="legend-item">
+<div class="legend-symbol"><svg><circle cx="15" cy="15" r="10" stroke="white" stroke-width="2" fill="rgb(200, 0, 0)" stroke-dasharray="4" /></svg></div>
+<span>P: Suono pressionato</span>
+</div>
+<div class="legend-item">
+<div class="legend-symbol"><svg><polygon points="15,5 25,25 5,25" stroke="white" stroke-width="2" fill="rgb(200, 0, 0)" /></svg></div>
+<span>S: Slap sulla culatta</span>
+</div>
+<div class="legend-item">
+<div class="legend-symbol"><svg><circle cx="15" cy="15" r="10" stroke="white" stroke-width="2" fill="rgb(200, 0, 0)" /><polygon points="15,7.3 21,20 9,20" stroke="white" stroke-width="1.5" fill="rgb(200, 0, 0)" /></svg></div>
+<span>I: Insieme - mordito</span>
+</div>
+</div>
+</body></html>
