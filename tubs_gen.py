@@ -24,27 +24,34 @@ def parse_input(filename):
     with open(filename, 'r') as f:
         lines = f.readlines()
 
-    time_signature = lines[0].strip()
+    toque_name = ""
+    time_signature = ""
     parts = {'Okonkolo': '', 'Itotele': '', 'Iya': ''}
     current = None
-    for line in lines[1:]:
+
+    for line in lines:
         line = line.strip()
-        if line in parts:
+        if line.startswith("Toque:"):
+            toque_name = line.replace("Toque:", "").strip()
+        elif line.startswith("Time:"):
+            time_signature = line.replace("Time:", "").strip()
+        elif line in parts:
             current = line
         elif current:
             parts[current] += line
-    return time_signature, parts
+            
+    return toque_name, time_signature, parts
 
-def generate_html(time_signature, parts):
+def generate_html(toque_name, time_signature, parts):
     beats_per_bar = 4 if time_signature == '4/4' else 6 if time_signature == '6/8' else 4
     max_len = max(len(seq) for seq in parts.values())
 
     html = ['<html>', '<head>', '<style>']
     html.append("""
         body {
-            background-color: rgb(100, 100, 100); /* Sfondo grigio medio per tutto il body */
-            color: white; /* Testo bianco per tutto il body */
-            font-family: sans-serif; /* Un font leggibile */
+            background-color: rgb(100, 100, 100);
+            color: white;
+            font-family: sans-serif;
         }
         table { border-collapse: collapse; margin-top: 20px;}
         td {
@@ -53,32 +60,33 @@ def generate_html(time_signature, parts):
             text-align: center;
             border: 1px solid #aaa;
             background-color: rgb(100, 100, 100);
-            vertical-align: middle; /* Allinea il contenuto al centro verticalmente */
+            vertical-align: middle;
         }
-        .bar-line { border-right: 3px solid white !important; } /* Linee delle barre bianche per contrasto */
+        .bar-line { border-right: 3px solid white !important; }
         svg { width: 30px; height: 30px; }
         .legend-item { display: flex; align-items: center; margin-bottom: 5px; }
         .legend-symbol { margin-right: 10px; }
-        h2, h3 { color: white; } /* Assicurati che gli heading siano bianchi */
+        h2, h3 { color: white; }
         .count-row td {
-            font-size: 0.8em; /* Rendi il testo del conteggio leggermente più piccolo */
+            font-size: 0.8em;
             font-weight: bold;
-            color: #eee; /* Colore leggermente più chiaro per il conteggio */
-            border: none; /* Rimuovi i bordi tra le celle del conteggio */
-            background-color: transparent; /* Sfondo trasparente per le celle del conteggio */
+            color: #eee;
+            border: none;
+            background-color: transparent;
         }
         .count-row.quarter td {
-            border-bottom: 1px solid #777; /* Sottolinea la riga dei quarti */
+            border-bottom: 1px solid #777;
         }
         .count-label {
-            width: 80px; /* Larghezza fissa per le etichette di conteggio */
+            width: 80px;
             text-align: left;
             padding-left: 5px;
             font-weight: bold;
         }
     """)
     html.append('</style></head><body>')
-    html.append(f'<h2>Bat\u00e0 Drum Score in {time_signature}</h2>')
+    # MODIFICA QUI: Rimosso "Batà Drum Score -"
+    html.append(f'<h2>{toque_name} in {time_signature}</h2>')
     html.append('<table>')
 
     # Add Quarter note count row
@@ -87,7 +95,7 @@ def generate_html(time_signature, parts):
     for i in range(max_len):
         quarter_count = (i // 4) + 1
         display_quarter = ""
-        if i % 4 == 0: # Only print the number on the first sixteenth of each quarter
+        if i % 4 == 0:
             display_quarter = str(quarter_count)
         
         bar_class = 'bar-line' if (i + 1) % beats_per_bar == 0 else ''
@@ -98,7 +106,7 @@ def generate_html(time_signature, parts):
     html.append('<tr class="count-row sixteenth">')
     html.append('<td class="count-label">Sedicesimi</td>')
     for i in range(max_len):
-        sixteenth_beat = (i % 4) + 1 # Each quarter has 4 sixteenths, so this still counts 1,2,3,4 within each quarter
+        sixteenth_beat = (i % 4) + 1
         bar_class = 'bar-line' if (i + 1) % beats_per_bar == 0 else ''
         html.append(f'<td class="{bar_class}">{sixteenth_beat}</td>')
     html.append('</tr>')
@@ -153,8 +161,8 @@ def main():
         print("Usage: python tubs_gen.py input.txt output.html")
         return
 
-    time_sig, parts = parse_input(sys.argv[1])
-    html = generate_html(time_sig, parts)
+    toque_name, time_sig, parts = parse_input(sys.argv[1])
+    html = generate_html(toque_name, time_sig, parts)
     with open(sys.argv[2], 'w') as f:
         f.write(html)
 
